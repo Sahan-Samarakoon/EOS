@@ -1,4 +1,4 @@
---Who takes at most 2 courses?
+--Who takes at most 2 courses? who does not take at least 3 courses?
 select sno 
 from dbo.student
 where not(sno in
@@ -9,12 +9,17 @@ where not(sno in
 		 and   (x.cno < y.cno)
 		 and   (y.cno < z.cno)))
 
---Who takes exactly 2 courses?
-select x.sno
-from dbo.take x, dbo.take y
-where  (x.sno = y.sno)
-and	   (x.cno < y.cno)
-and not(x.sno in
+select sname
+from dbo.student
+where ( sno in (1, 2, 4))
+
+
+--Who takes exactly 2 courses?who takes at least 2 courses and not at least 3?
+select a.sno
+from dbo.take a, dbo.take b
+where  (a.sno = b.sno)
+and	   (a.cno < b.cno)
+and not(a.sno in
 	   (select x.sno
 		 from dbo.take x, dbo.take y, dbo.take z 
 		 where (x.sno = y.sno)
@@ -22,7 +27,7 @@ and not(x.sno in
 		 and   (x.cno < y.cno)
 		 and   (y.cno < z.cno)))
 
---Who takes only CS112?
+--Who takes only CS112? who takes CS112 and doesnt take an other?
 select sno
 from dbo.take
 where not(sno in
@@ -55,4 +60,5 @@ and not(sno in
 
 select *
 from dbo.take
+
 
