@@ -57,8 +57,27 @@ and not(sno in
 		and   (x.cno = 'CS112')
 		and   (y.cno = 'CS114')))
 
+--Who are the youngest students?
+select sno
+from student
+where age not in
+	 (select x.age
+	  from student x, student y
+	  where x.age > y.age)
+
+
+--Who takes every course?   Ask about data type issue
+select sno
+from student
+where sno not in 
+	 (select sno
+	  from student, courses
+	  where concat(cno, sno) not in 
+			(select concat(cno, sno)
+			 from take))
+
 
 select *
-from dbo.take
+from student
 
 
