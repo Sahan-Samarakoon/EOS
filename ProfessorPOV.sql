@@ -33,9 +33,10 @@ and	  (x.cno < y.cno)
 
 
 --Which courses are taught by at least 2 professors ?
-select x.cno
-from teach x, teach y
+select x.cno, c.title
+from teach x, teach y, courses c
 where (x.cno = y.cno) --our reference is one single course
+and	  (x.cno = c.cno)
 and	  ((x.fname != y.fname)
 or	  (x.lname != y.lname))
 

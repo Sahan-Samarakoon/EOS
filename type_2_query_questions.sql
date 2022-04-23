@@ -35,7 +35,7 @@ where not(sno in
 		  from dbo.take
 		  where (cno != 'CS112')))
 
---Who takes either CS112 or CS114?
+--Who takes either CS112 or CS114?-- CS112 or CS114 and not both
 select sno
 from dbo.take
 where ((cno = 'CS112') or (cno = 'CS114'))
@@ -57,13 +57,13 @@ and not(sno in
 		and   (x.cno = 'CS112')
 		and   (y.cno = 'CS114')))
 
---Who are the youngest students?
+--Who are the youngest students? Who are not among the students who are not youngest?
 select sno
 from student
-where age not in
-	 (select x.age
+where age  in
+	 (select y.age
 	  from student x, student y
-	  where x.age > y.age)
+	  where x.age < y.age)
 
 
 --Who takes every course?   Ask about data type issue
@@ -76,8 +76,5 @@ where sno not in
 			(select concat(cno, sno)
 			 from take))
 
-
 select *
 from student
-
-
